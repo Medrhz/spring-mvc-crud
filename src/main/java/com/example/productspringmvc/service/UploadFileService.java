@@ -11,7 +11,7 @@ import java.nio.file.StandardCopyOption;
 
 @Service
 public class UploadFileService {
-    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
+    private static final String UPLOAD_DIR = "public/";
 
     public String saveFile (MultipartFile file, String subPath) throws IOException {
         File uploadDir = null;

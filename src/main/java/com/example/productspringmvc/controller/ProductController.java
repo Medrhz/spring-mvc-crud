@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Date;
@@ -46,17 +47,20 @@ public class ProductController {
 
     // saveAction
     @RequestMapping(name = "save", value = "/save", method = {RequestMethod.POST})
-    public String saveAction (@ModelAttribute Product product, @RequestParam("imageFile") MultipartFile file) {
+    public String saveAction (@ModelAttribute Product product, @RequestParam("imageFile") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             product.setCreatedAt(new Date());
             Product productSave = this.productService.saveProduct(product, file);
             if (productSave != null) {
+                redirectAttributes.addFlashAttribute("message", "create product with success");
                 return "redirect:/product/";
             } else {
-                return "create";
+                redirectAttributes.addFlashAttribute("message", "save operation failed");
+                return "reidrect:/product/create";
             }
         } catch (IOException e) {
             e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "save operation failed");
             return "redirect:/product/create";
         }
 

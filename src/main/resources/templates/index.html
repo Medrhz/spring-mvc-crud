@@ -34,7 +34,9 @@
 </nav>
 <div class="container my-4">
     <a class="btn btn-primary" href="/product/create">add new product</a>
-    <table class="table table-stiped">
+
+    <div class="alert alert-success" th:text="${message}"></div>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
@@ -55,7 +57,8 @@
             <td th:text="${product.price}"></td>
             <td>
                 <!--                <img alt="" height="100px" th:src="@{${product.image}}" width="100px"/>-->
-                <img alt="Product Image" height="100px" th:src="@{'/uploads/' + ${product.image}}" width="100px"/>
+                <img alt="Product Image" height="100px" th:src="@{'/' + ${product.image}}"
+                     width="100px"/>
 
             </td>
             <td th:text="${product.createdAt}"></td>
